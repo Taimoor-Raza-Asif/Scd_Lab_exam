@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install express axios mongoose
+RUN npm install express axios mongoose && docker tag payment-services raza17/payment-services:latest
 
 COPY . .
 

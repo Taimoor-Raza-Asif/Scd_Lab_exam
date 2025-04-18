@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install express kafkajs mongoose axios
+RUN npm install express kafkajs mongoose axios && docker tag order-services raza17/order-services:latest
 
 COPY . .
 

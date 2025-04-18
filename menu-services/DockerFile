@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install express mongoose
+RUN npm install express mongoose && docker tag menu-services raza17/menu-services:latest
 
 COPY . .
 

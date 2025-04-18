@@ -6,8 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -26,6 +24,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Login to dockerhub
+      uses: docker/login-action@v3
+      with:
+       username: ${{ secrets.DOCKERHUB_USERNAME }}
+       password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push to dockerhub
+      uses: docker/build-push-action@v5
+      with:
+       context:
+       push: true
+       tags: raza17/api-gateway:latest && raza17/customer-services:latest && raza17/inventory-services:latest && raza17/menu-services:latest && raza17/order-services:latest && raza17/payment-services:latest
+ 
